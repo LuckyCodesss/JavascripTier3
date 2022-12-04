@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            border: 5px solid black;
+        }
+        th{
+            border: 3px solid black;
+            padding: 15px;
+            background-color: beige;
+        }
+        td{
+            border: 3px solid black;
+            padding: 10px;
+            background-color: beige; 
+        }
+    </style>
+</head>
+<body>
+    <table id="result">
+        <tr>
+            <th>Category</th>
+            <th>cases</th>
+            <th>todayCases</th>
+            <th>deaths</th>
+            <th>todayDeaths</th>
+            <th>recovered</th>
+            <th>todayRecovered</th>
+            <th>active</th>
+            <th>critical</th>
+        </tr>
+    </table>
+    <script>
+    window.onload = ()=>{
+        const covidData = {}
+        axios.get("https://disease.sh/v3/covid-19/all").then((res)=>{
+            covidData.world = res.data
+            const show1 = document.getElementById("result")
+            show1.innerHTML += `<tr>
+                    <td>world</td>
+                    <td>${covidData.world.cases}</td>
+                    <td>${covidData.world.todayCases}</td>
+                    <td>${covidData.world.deaths}</td>
+                    <td>${covidData.world.todayDeaths}</td>
+                    <td>${covidData.world.recovered}</td>
+                    <td>${covidData.world.todayRecovered}</td>
+                    <td>${covidData.world.active}</td>
+                    <td>${covidData.world.critical}</td>
+                    </tr>`
+        console.log(show1)
+
+        axios.get("https://corona.lmao.ninja/v2/countries/thailand").then((res)=>{
+            covidData.thailand = res.data
+            console.log(covidData.thailand)
+            const show2 = document.getElementById("result")
+            show2.innerHTML += `<tr>
+                    <td>thailand</td>
+                    <td>${covidData.thailand.cases}</td>
+                    <td>${covidData.thailand.todayCases}</td>
+                    <td>${covidData.thailand.deaths}</td>
+                    <td>${covidData.thailand.todayDeaths}</td>
+                    <td>${covidData.thailand.recovered}</td>
+                    <td>${covidData.thailand.todayRecovered}</td>
+                    <td>${covidData.thailand.active}</td>
+                    <td>${covidData.thailand.critical}</td>
+                    </tr>`
+                
+            console.log(show2)
+            })
+        })
+            
+    }
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
